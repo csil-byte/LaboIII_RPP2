@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/script.js" type="module"></script>
+    <link rel="stylesheet" href="../css/estilo.css" />
+    <link rel="stylesheet" href="../pages/css/estiloMain.css" />
+    <script src="https://kit.fontawesome.com/c4d1ad1d7d.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
+
+    <title>Cecilia Silva -Primer Parcial</title>
+</head>
+
+<body>
+    <div id="custom-alert"></div>
+
+    <header>
+        <div class="inner">
+            <!------------------------------------------------------- NAVIGATION MENU ---------------------------------------------------->
+            <nav>
+                <div class="navbar-logo">
+                    <img src="./resources/carslogo.png" id="img-logo" alt="Google logo" />
+                </div>
+                <ul class="navbar-buttons">
+                    <li class="">
+                        <a href="../index.html">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="#">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="#">Anuncios</a>
+                    </li>
+                    <li>
+                        <a href="#">Blog</a>
+                    </li>
+                    <li>
+                        <a href="#">Contacto</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="back-image">
+            <span class="titulos">
+					<h2>Venta y Alquiler de Vehiculos</h2>
+					<h2>Exclusivos de Lujo</h2>
+				</span>
+        </div>
+    </header>
+
+    <!-------------------------------------------------------------- FORM---------------------------------------------------->
+    <main class="crud">
+        <form id="formulario" action="/">
+            <fieldset>
+                <h3 id="infoAnuncio">
+                    Informacion del anuncio
+                </h3>
+                <label>
+						<div class="form-label-container">
+							<i class="fas fa-signature"></i>
+							<span>Titulo*:</span>
+						</div>
+						<input
+							type="text"
+							name="txtTitulo"
+							placeholder="ingrese un nombre "
+							autocomplete="off"
+							required
+						/>
+					</label>
+                <label for="F_transaccion">
+						<div class="form-label-container">
+							<i class="fas fa-laptop"></i
+							><span>Transaccion*:</span>
+						</div>
+						<select name="F_transaccion" id="F_transaccion">
+							<option value="venta">Venta</option>
+							<option value="alquiler">Alquiler</option>
+							<option value="permuta">Permuta</option>
+						</select>
+					</label>
+                <input type="hidden" name="txtId" />
+                <label for="txtDescripcion">
+						<div class="form-label-container">
+							<i class="fas fa-info"></i
+							><span>Descripcion*:</span>
+						</div>
+						<input
+							type="text"
+							autocomplete="off"
+							name="txtDescripcion"
+							id="iDescripcion"
+							placeholder="ingrese una descripcion"
+							required
+					/></label>
+                <label for="txtPrecio">
+						<div class="form-label-container">
+							<i class="fas fa-dollar-sign"></i
+							><span>Precio*:</span>
+						</div>
+						<input
+							type="number"
+							name="txtPrecio"
+							id="txtPrecio"
+							placeholder="ingrese el precio"
+							autocomplete="off"
+							required
+					/></label>
+                <label for="txtPuertas" class="puertas-label">
+						<div class="form-label-container">
+							<i class="fas fa-door-open"></i
+							><span>Cantidad de Puertas*:</span>
+						</div>
+						1<input checked type="radio" value="1" name="txtPuertas" >
+						2<input type="radio" value="2" name="txtPuertas" >
+						3<input type="radio" value="3" name="txtPuertas" >
+						4<input type="radio" value="4" name="txtPuertas" >
+				</label>
+                <label for="txtKms">
+						<div class="form-label-container">
+							<i class="fas fa-tachometer-alt"></i
+							><span>Kms*:</span>
+						</div>
+						<input
+							type="number"
+							name="txtKms"
+							id="txtKms"
+							placeholder="ingrese kms"
+							autocomplete="off"
+							required
+					/></label>
+                <label for="txtCantidadPotencia">
+						<div class="form-label-container">
+							<i class="fas fa-car-battery"></i
+							><span>Potencia*:</span>
+						</div>
+						<input
+							type="number"
+							name="txtCantidadPotencia"
+							id="txtCantidadPotencia"
+							placeholder="ingrese potencia"
+							autocomplete="off"
+							required
+					/></label>
+            </fieldset>
+            <!-------------------------------------BOTONES------------------------------------------------------------------>
+            <div class="buttons">
+                <button type="submit" id="btnAgregar" class="bg-green">
+						<i class="fas fa-check"></i>Enviar
+					</button>
+                <button type="submit" id="btnModificar" class="bg-blue">
+						<i class="fas fa-edit"></i>Modificar
+					</button>
+                <button type="submit" id="btnEliminar" class="bg-orange">
+						<i class="fas fa-eraser"></i>Eliminar
+					</button>
+                <button type="button" id="btnCancelar" class="bg-red">
+						<i class="fas fa-window-close"></i>Cancelar
+					</button>
+            </div>
+        </form>
+
+        <!-------------------------------------FILTRO Y CHECKBOXES---------------------------------------------------------------------->
+        <section class="filtros-container">
+            <p id="TituloFiltro" class="text-center">
+                <strong>Zona de Filtros</strong>
+            </p>
+            <hr />
+
+            <div class="filtro-inputs">
+                <div class="filtro-container">
+                    <label for="txtPrecioFilter" class="input-promedios">
+							elegir transaccion<select
+								id="listTransaccionesFiltrado"
+							>
+								<option value="todos" selected>Todos</option>
+								<option value="venta">Venta</option>
+								<option value="alquiler">Alquiler</option>
+								<option value="permuta">Permuta</option>
+							</select>
+						</label>
+                </div>
+                <div class="filtro-container">
+                    <label for="txtPrecioFilter" class="input-promedios">promedio de precios<input
+								type="text"
+								id="txtPrecioFilter"
+								class="bg-gray"
+								readonly
+							/>
+						</label>
+                </div>
+            </div>
+        </section>
+
+        <br />
+        <legend>
+            <h3 id="listado">Listado de personas</h3>
+        </legend>
+
+        <section class="campos-container">
+            <p id="TituloFiltro">
+                <strong>Campos mostrados</strong>
+            </p>
+            <div id="campos-mostrados-checkboxes" class="form-check-inline">
+                <div>
+                    <div class="form-check-container">
+                        <label for="chkTitulo" id="lblCheck">Titulo</label
+							>
+							<input
+								type="checkbox"
+								checked
+								id="chkTitulo"
+								value="titulo"
+							/>
+						<divdiv class="form-check-container">
+							<label
+								for="chkTransaccion"
+								id="lblCheck"
+								>Transaccion</label
+							>
+							<input
+								type="checkbox"
+								checked
+								id="chkTransaccion"
+								value="f_transaccion"
+							/>
+						</div>
+						<div class="form-check-container">
+							<label
+								for="chkDescripcion"
+								id="lblCheck"
+								>Descripcion</label
+							>
+							<input
+								type="checkbox"
+								checked
+								id="chkDescripcion"
+								value="descripcion"
+							/>
+						</div>
+						<div class="form-check-container">
+							<label
+								for="chkPrecio"
+								id="lblCheck"
+								>Precio</label
+							>
+							<input
+								type="checkbox"
+								checked
+								id="chkPrecio"
+								value="precio"
+							/>
+						</div>
+						<div class="form-check-container">
+							<label
+								for="chkPuertas"
+								id="lblCheck"
+								>Puertas
+							</label>
+                        <input type="checkbox" checked id="chkPuertas" value="puertas" />
+                    </div>
+                    <div class="form-check-container">
+                        <label for="chkKMs" id="lblCheck">KMs</label
+							>
+							<input
+								type="checkbox"
+								checked
+								id="chkKMs"
+								value="kms"
+							/>
+						</div>
+						<div class="form-check-container">
+							<label
+								for="chkPotencia"
+								id="lblCheck"
+								>Potencia</label
+							>
+							<input
+								type="checkbox"
+								checked
+								id="chkPotencia"
+								value="potencia"
+							/>
+						</div>
+					</div>
+				</div>
+			</section>
+			<br />
+			<!------------------------------------------------------- TABLA --------------------------------------------------------------------->
+			<div class="container">
+				<fieldset id="fieldTabla">
+					<section>
+						<div id="divTabla"></div>
+						<div class="spinner" id="containerSpinner"></div>
+
+						<div id="divAlert"></div>
+					</section>
+				</fieldset>
+			</div>
+		</main>
+
+		<!-------------------------------------------------------FOOTER--------------------------------------------------------------------->
+		<footer>
+			<div class="navbar-logo">
+				<img src="./resources/carslogo.png" id="img-logo" alt="Google logo" />
+			</div>
+			<div class="footer-content">&copy; 2021 - Cecilia Silva -</div>
+		</footer>
+	</body>
+</html>
